@@ -1,6 +1,7 @@
 package com.jkxy.car.api.controller;
 
 import com.jkxy.car.api.pojo.Car;
+import com.jkxy.car.api.pojo.Page;
 import com.jkxy.car.api.service.CarService;
 import com.jkxy.car.api.utils.JSONResult;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -85,4 +86,29 @@ public class CarController {
         carService.insertCar(car);
         return JSONResult.ok();
     }
+
+    /**
+     * 通过车名购买
+     *
+     * @param carName
+     * @return
+     */
+    @GetMapping("buyByCarName/{carName}")
+    public JSONResult buyByCarName(@PathVariable String carName) {
+        Car car = carService.buyByCarName(carName);
+        return JSONResult.ok(car);
+    }
+
+    /**
+     * 通过品牌模糊查询
+     *
+     * @param page
+     * @return
+     */
+    @PostMapping("findByCarSeries")
+    public JSONResult findByCarSeries(Page page) {
+        List<Car> cars = carService.findByCarSeries(page);
+        return JSONResult.ok(cars);
+    }
+
 }
